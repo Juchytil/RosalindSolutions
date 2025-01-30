@@ -1,6 +1,6 @@
 # My Rosalind Solutions
 
-sequence = 'ATGCGGGCGAGCGTTTCGGAGGGTATTTATTATCTTTCTATCATTTTTTAGGGGAGGATTTTAGGGGATTATCTCTCGATCGATTATCGATCC'
+test_seq = 'ATGCGGGCGAGCGTTTCGGAGGGTATTTATTATCTTTCTATCATTTTTTAGGGGAGGATTTTAGGGGATTATCTCTCGATCGATTATCGATCC'
 
 # Counting Nucleotides (DNA)
 
@@ -9,8 +9,7 @@ def nuc_count(seq):
     T_count = seq.count('T')
     G_count = seq.count('G')
     C_count = seq.count('C')
-    counts = (A_count,T_count,G_count,C_count)
-    return counts
+    return A_count,T_count,G_count,C_count
 
 ## DNA to RNA (RNA)
 
@@ -73,3 +72,51 @@ def rna_to_prot(rna_seq):
     
 print(rna_to_prot(rna_sequence))
 
+## Finding a Motif (SUBS)
+
+def motif_start_loc(seq,motif):
+  for i in range(len(seq)):
+    if seq[i:i+len(motif)] == motif:
+      print(i+1)
+
+# print(test[1:1+len(motif_test)] == motif_test)
+
+## Calculating Protein Mass (PRTM)
+
+prot_mass_table = {
+    'A' : '71.03711',  'C' : '103.00919', 'D' : '115.02694',
+    'E' : '129.04259', 'F' : '147.06841', 'G' : '57.02146',
+    'H' : '137.05891', 'I' : '113.08406', 'K' : '128.09496',
+    'L' : '113.08406', 'M' : '131.04049', 'N' : '114.04293',
+    'P' : '97.05276',  'Q' : '128.05858', 'R' : '156.10111',
+    'S' : '87.03203',  'T' : '101.04768', 'V' : '99.06841',
+    'W' : '186.07931', 'Y' : '163.06333'
+}
+
+def prot_mass(seq):
+  protien_mass = 0
+  for i in seq:
+    protien_mass += float(prot_mass_table[i])
+  return protien_mass
+
+## RNA Splicing (SPLC)
+
+def rna_splicing(seq,intron):
+  exon_seq = seq.replace(intron,'')
+  return exon_seq
+
+print(rna_splicing(test_seq,test_int))
+
+## Locating Restriction Sites (REVP)
+
+## Transitions and Transversions (TRAN)
+
+def transition_transversion_ratio(seqa,seqb):
+  transversion = 0
+  transition = 0
+  for i in range(len(seqa))
+    if seqa[i] and 
+
+## Finding a Shared Motif (LCSM)
+
+## Open Reading Frames (ORF)
