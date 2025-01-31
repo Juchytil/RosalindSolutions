@@ -1,8 +1,6 @@
 # My Rosalind Solutions
 
-test_seq = 'ATGCGGGCGAGCGTTTCGGAGGGTATTTATTATCTTTCTATCATTTTTTAGGGGAGGATTTTAGGGGATTATCTCTCGATCGATTATCGATCC'
-
-# Counting Nucleotides (DNA)*
+## Counting Nucleotides (DNA)*
 
 def nuc_count(seq):
     A_count = seq.count('A')
@@ -76,7 +74,8 @@ def rna_to_prot(rna_seq):
 def motif_start_loc(seq,motif):
   for i in range(len(seq)):
     if seq[i:i+len(motif)] == motif:
-      print(i)
+      print(i+1)
+
 
 ## Calculating Protein Mass (PRTM)*
 
@@ -98,17 +97,12 @@ def prot_mass(seq):
 
 ## RNA Splicing (SPLC)*
 
-test = 'ATGGTCTACATAGCTGACAAACAGCACGTAGCAATCGGTCGAATCTCGAGAGGCATATGGTCACATGATCGGTCGAGCGTGTTTCAAAGTTTGCGCCTAG'
-test_intron = ['ATCGGTCGAA','ATCGGTCGAGCGTGT']
-
 def rna_splicing(seq,introns):
   for intron in introns:
     seq = seq.replace(intron,'')
   rna_seq = dna_to_rna(seq)
   protein = rna_to_prot(rna_seq)
   return protein
-
-print(rna_splicing(test,test_intron))
 
 ## Locating Restriction Sites (REVP)*
 
