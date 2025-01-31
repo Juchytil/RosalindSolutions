@@ -2,7 +2,7 @@
 
 test_seq = 'ATGCGGGCGAGCGTTTCGGAGGGTATTTATTATCTTTCTATCATTTTTTAGGGGAGGATTTTAGGGGATTATCTCTCGATCGATTATCGATCC'
 
-# Counting Nucleotides (DNA)
+# Counting Nucleotides (DNA)*
 
 def nuc_count(seq):
     A_count = seq.count('A')
@@ -11,20 +11,20 @@ def nuc_count(seq):
     C_count = seq.count('C')
     return A_count,T_count,G_count,C_count
 
-## DNA to RNA (RNA)
+## DNA to RNA (RNA)*
 
 def dna_to_rna(seq):
   rna = seq.replace('T','U')
   return rna
 
-## Reverse Compliment Strand (REVC)
+## Reverse Compliment Strand (REVC)*
 
 def reverse_compliment_seq(seq):
   compliment_lib = str.maketrans({'A':'T','T':'A','C':'G','G':'C'})
   rev_comp_seq = seq.translate(compliment_lib)[::-1]
   return rev_comp_seq
 
-## GC Content Function (GC)
+## GC Content Function (GC)*
 
 def GC_content(sequence):
     seq_len = sequence.count('')
@@ -34,7 +34,7 @@ def GC_content(sequence):
     GC_percent = (GC_value/seq_len)*100
     return GC_percent
 
-## Point mutation count (HAMM)
+## Point mutation count (HAMM)*
 
 def mutations_count(seq_a, seq_b):
   mutation = 0
@@ -43,7 +43,7 @@ def mutations_count(seq_a, seq_b):
       mutation += 1
   return mutation
 
-## RNA to protein (PROT)
+## RNA to protein (PROT)*
 
 rna_codon_table = {"UUU" : "F", "CUU" : "L", "AUU" : "I", "GUU" : "V",
            "UUC" : "F", "CUC" : "L", "AUC" : "I", "GUC" : "V",
@@ -62,26 +62,23 @@ rna_codon_table = {"UUU" : "F", "CUU" : "L", "AUU" : "I", "GUU" : "V",
            "UGA" : "STOP", "CGA" : "R", "AGA" : "R", "GGA" : "G",
            "UGG" : "W", "CGG" : "R", "AGG" : "R", "GGG" : "G"}
 
-rna_sequence = sequence.replace('T','U')
-
 def rna_to_prot(rna_seq):
   protien = ''
   for i in range(0,len(rna_seq),3):
+    if rna_codon_table[rna_seq[i:i+3]] == 'STOP':
+      break
     protien += rna_codon_table[rna_seq[i:i+3]]
   return protien
-    
-print(rna_to_prot(rna_sequence))
 
-## Finding a Motif (SUBS)
+
+## Finding a Motif (SUBS)*
 
 def motif_start_loc(seq,motif):
   for i in range(len(seq)):
     if seq[i:i+len(motif)] == motif:
-      print(i+1)
+      print(i)
 
-# print(test[1:1+len(motif_test)] == motif_test)
-
-## Calculating Protein Mass (PRTM)
+## Calculating Protein Mass (PRTM)*
 
 prot_mass_table = {
     'A' : '71.03711',  'C' : '103.00919', 'D' : '115.02694',
@@ -99,23 +96,37 @@ def prot_mass(seq):
     protien_mass += float(prot_mass_table[i])
   return protien_mass
 
-## RNA Splicing (SPLC)
+## RNA Splicing (SPLC)*
 
-def rna_splicing(seq,intron):
-  exon_seq = seq.replace(intron,'')
-  return exon_seq
+test = 'ATGGTCTACATAGCTGACAAACAGCACGTAGCAATCGGTCGAATCTCGAGAGGCATATGGTCACATGATCGGTCGAGCGTGTTTCAAAGTTTGCGCCTAG'
+test_intron = ['ATCGGTCGAA','ATCGGTCGAGCGTGT']
 
-print(rna_splicing(test_seq,test_int))
+def rna_splicing(seq,introns):
+  for intron in introns:
+    seq = seq.replace(intron,'')
+  rna_seq = dna_to_rna(seq)
+  protein = rna_to_prot(rna_seq)
+  return protein
 
-## Locating Restriction Sites (REVP)
+print(rna_splicing(test,test_intron))
+
+## Locating Restriction Sites (REVP)*
+
+def restriction_site(seq):
+  low_range = 4
+  high_range = 12
+  for n in range(len(seq)-low_range):
+    for i in range(low_range, high_range):
+      if seq[n:n+i] == reverse_compliment_seq(seq[n:n+i]) and len(seq[n:n+i]) == i:
+        print(n+1,len(seq[n:n+i]))
 
 ## Transitions and Transversions (TRAN)
 
-def transition_transversion_ratio(seqa,seqb):
-  transversion = 0
-  transition = 0
-  for i in range(len(seqa))
-    if seqa[i] and 
+# def transition_transversion_ratio(seqa,seqb):
+#   transversion = 0
+#   transition = 0
+#   for i in range(len(seqa))
+#     if seqa[i] and 
 
 ## Finding a Shared Motif (LCSM)
 
