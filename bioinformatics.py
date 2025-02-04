@@ -128,6 +128,18 @@ def restriction_site(seq):
 
 ## Rabbits and Recurrence Relations (FIB)
 
+def rabbits(months,litter):
+  month = 0
+  pairs = 1
+  onemonthpairs = 0
+  twomonthpairs = 0
+  while month < months:
+    pairs += onemonthpairs
+    onemonthpairs = 0 + twomonthpairs
+    twomonthpairs = 0 + pairs*litter
+    month += 1
+  return pairs, onemonthpairs, twomonthpairs
+
 ## Mendels First Law (IPRB)
 
 def mendelsfirst(dom,het,rec):
@@ -142,5 +154,3 @@ def mendelsfirst(dom,het,rec):
   rechet = recpickone*(het/(total -  1))
   percentdom = dompickone + (hetdom) + (hethet*0.75) + (hetrec*0.5) + (recdom) + (rechet*0.5)
   return percentdom
-
-## pull from the hat to see what two we get 
