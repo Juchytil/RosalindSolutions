@@ -125,3 +125,22 @@ def restriction_site(seq):
 ## Finding a Shared Motif (LCSM)
 
 ## Open Reading Frames (ORF)
+
+## Rabbits and Recurrence Relations (FIB)
+
+## Mendels First Law (IPRB)
+
+def mendelsfirst(dom,het,rec):
+  total = dom + het + rec
+  dompickone = dom / total
+  hetpickone =  het / total
+  recpickone = rec / total
+  hetdom = hetpickone*(dom/(total - 1))
+  hethet = hetpickone*((het - 1)/(total - 1))
+  hetrec = hetpickone*(rec/(total - 1))
+  recdom = recpickone*(dom/(total - 1))
+  rechet = recpickone*(het/(total -  1))
+  percentdom = dompickone + (hetdom) + (hethet*0.75) + (hetrec*0.5) + (recdom) + (rechet*0.5)
+  return percentdom
+
+## pull from the hat to see what two we get 
