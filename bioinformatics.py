@@ -140,6 +140,19 @@ def rabbits(months,litter):
     month += 1
   return pairs, onemonthpairs, twomonthpairs
 
+## Mortal FIbonaccie Rabbits (FIBD)
+
+def mortalrabbits(months,life_span):
+  rabit_pop_month = []
+  month = 0
+  pairs = 0
+  onemonthpairs = 0
+  twomonthpairs = 0
+  while month < months
+    pairs += onemonthpairs
+    rabit_pop_month.append(pairs)
+  return pairs, onemonthpairs, twomonthpairs
+
 ## Mendels First Law (IPRB)
 
 def mendelsfirst(dom,het,rec):
