@@ -25,7 +25,7 @@ def reverse_compliment_seq(seq):
 ## GC Content Function (GC)*
 
 def GC_content(sequence):
-    seq_len = sequence.count('')
+    seq_len = len(sequence)
     G_value = sequence.count('G')
     C_value = sequence.count('C')
     GC_value = G_value + C_value
