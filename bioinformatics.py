@@ -142,8 +142,6 @@ def rabbits(months,litter):
 
 ## Mortal FIbonaccie Rabbits (FIBD)
 
-
-
 ## Mendels First Law (IPRB)*
 
 def mendelsfirst(dom,het,rec):
