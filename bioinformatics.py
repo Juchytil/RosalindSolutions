@@ -126,7 +126,7 @@ def restriction_site(seq):
 
 ## Open Reading Frames (ORF)
 
-## Rabbits and Recurrence Relations (FIB)
+## Rabbits and Recurrence Relations (FIB)*
 
 def rabbits(months,litter):
   month = 0
@@ -142,18 +142,9 @@ def rabbits(months,litter):
 
 ## Mortal FIbonaccie Rabbits (FIBD)
 
-def mortalrabbits(months,life_span):
-  rabit_pop_month = []
-  month = 0
-  pairs = 0
-  onemonthpairs = 0
-  twomonthpairs = 0
-  while month < months
-    pairs += onemonthpairs
-    rabit_pop_month.append(pairs)
-  return pairs, onemonthpairs, twomonthpairs
 
-## Mendels First Law (IPRB)
+
+## Mendels First Law (IPRB)*
 
 def mendelsfirst(dom,het,rec):
   total = dom + het + rec
