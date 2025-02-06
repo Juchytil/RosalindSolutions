@@ -24,6 +24,17 @@ def reverse_compliment_seq(seq):
 
 ## GC Content Function (GC)*
 
+### for opening file
+  # with open('rosalind_gc.txt', 'r') as file:
+  # fastas={}
+  # for line in file.readlines():
+  #   if line [0]=='>':
+  #     header=line[1:].strip()
+  #     fastas[header]=''
+  #   else:
+  #     fastas[header]+=line[:-1]
+  # print(fastas)
+
 def GC_content(sequence):
     seq_len = len(sequence)
     G_value = sequence.count('G')
