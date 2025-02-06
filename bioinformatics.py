@@ -127,12 +127,6 @@ def restriction_site(seq):
 
 ## Transitions and Transversions (TRAN)
 
-# def transition_transversion_ratio(seqa,seqb):
-#   transversion = 0
-#   transition = 0
-#   for i in range(len(seqa))
-#     if seqa[i] and 
-
 ## Finding a Shared Motif (LCSM)
 
 ## Open Reading Frames (ORF)
