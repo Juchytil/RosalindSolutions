@@ -24,7 +24,7 @@ def reverse_compliment_seq(seq):
 
 ## GC Content Function (GC)*
 
-### for opening file
+### for opening FASTA file if needed
   # with open('rosalind_gc.txt', 'r') as file:
   # fastas={}
   # for line in file.readlines():
