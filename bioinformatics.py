@@ -132,23 +132,27 @@ def restriction_site(seq):
 ## Open Reading Frames (ORF)
 
 test = 'AGCCATGTAGCTAACTCAGGTTACATGGGGATGACCCCGCGACTTGGATTAGAGTCTCTTTTGGAATAAGCCTGAATGATCCGAGTAGCATCTCAG'
-rna_test = dna_to_rna(test)
 
-def all_orfs(rna):
-  for i in range(0,len(rna)):
-    rna1 = rna_test[i:]
-    rna2 = rna_test[i+1:]
-    rna3 = rna_test[i+2:]
-    rna_rev1 = rna_test[i:][::-1]
-    rna_rev2 = rna_test[i+1:][::-1]
-    rna_rev3 = rna_test[i+1:][::-1]
+def all_orfs(seq):
+  rna_seq = dna_to_rna(seq)
+  for i in range(0,len(rna_seq)):
+    rna1 = rna_seq[i:]
+    rna2 = rna_seq[i+1:]
+    rna3 = rna_seq[i+2:]
+    rna_rev1 = rna_seq[i:][::-1]
+    rna_rev2 = rna_seq[i+1:][::-1]
+    rna_rev3 = rna_seq[i+1:][::-1]
     return rna1, rna2, rna3, rna_rev1, rna_rev2, rna_rev3
 
-test_all_orfs = all_orfs(rna_test)
-print(all_orfs(rna_test))
+print(all_orfs(test))
 
-for i in test_all_orfs:
-  rna_to_prot(i)
+orfs_test = all_orfs(test)
+
+for i in orfs_test:
+  print(rna_to_prot(i))
+
+rna_test = dna_to_rna(test)
+rna_to_prot(rna_test)
 
 ## Rabbits and Recurrence Relations (FIB)*
 
