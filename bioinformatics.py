@@ -54,30 +54,81 @@ def mutations_count(seq_a, seq_b):
 
 ## RNA to protein (PROT)*
 
-rna_codon_table = {"UUU" : "F", "CUU" : "L", "AUU" : "I", "GUU" : "V",
-           "UUC" : "F", "CUC" : "L", "AUC" : "I", "GUC" : "V",
-           "UUA" : "L", "CUA" : "L", "AUA" : "I", "GUA" : "V",
-           "UUG" : "L", "CUG" : "L", "AUG" : "M", "GUG" : "V",
-           "UCU" : "S", "CCU" : "P", "ACU" : "T", "GCU" : "A",
-           "UCC" : "S", "CCC" : "P", "ACC" : "T", "GCC" : "A",
-           "UCA" : "S", "CCA" : "P", "ACA" : "T", "GCA" : "A",
-           "UCG" : "S", "CCG" : "P", "ACG" : "T", "GCG" : "A",
-           "UAU" : "Y", "CAU" : "H", "AAU" : "N", "GAU" : "D",
-           "UAC" : "Y", "CAC" : "H", "AAC" : "N", "GAC" : "D",
-           "UAA" : "STOP", "CAA" : "Q", "AAA" : "K", "GAA" : "E",
-           "UAG" : "STOP", "CAG" : "Q", "AAG" : "K", "GAG" : "E",
-           "UGU" : "C", "CGU" : "R", "AGU" : "S", "GGU" : "G",
-           "UGC" : "C", "CGC" : "R", "AGC" : "S", "GGC" : "G",
-           "UGA" : "STOP", "CGA" : "R", "AGA" : "R", "GGA" : "G",
-           "UGG" : "W", "CGG" : "R", "AGG" : "R", "GGG" : "G"}
+rna_codon_dictionary = {
+        "UUU" : "F","CUU" : "L","AUU" : "I","GUU" : "V",
+        "UUC" : "F","CUC" : "L","AUC" : "I","GUC" : "V","UUA" : "L","CUA" : "L",
+        "AUA" : "I","GUA" : "V","UUG" : "L","CUG" : "L","AUG" : "M","GUG" : "V",
+        "UCU" : "S","CCU" : "P","ACU" : "T","GCU" : "A","UCC" : "S","CCC" : "P",
+        "ACC" : "T","GCC" : "A","UCA" : "S","CCA" : "P","ACA" : "T","GCA" : "A",
+        "UCG" : "S","CCG" : "P","ACG" : "T","GCG" : "A","UAU" : "Y","CAU" : "H",
+        "AAU" : "N","GAU" : "D","UAC" : "Y","CAC" : "H","AAC" : "N","GAC" : "D",
+        "UAA" : "STOP","CAA" : "Q","AAA" : "K","GAA" : "E","UAG" : "STOP","CAG" : "Q",
+        "AAG" : "K","GAG" : "E","UGU" : "C","CGU" : "R","AGU" : "S","GGU" : "G",
+        "UGC" : "C","CGC" : "R","AGC" : "S","GGC" : "G","UGA" : "STOP","CGA" : "R",
+        "AGA" : "R","GGA" : "G","UGG" : "W","CGG" : "R","AGG" : "R","GGG" : "G"
+}
 
 def rna_to_prot(rna_seq):
   protien = ''
   for i in range(0,len(rna_seq),3):
-    if rna_codon_table[rna_seq[i:i+3]] == 'STOP':
+    if rna_codon_dictionary[rna_seq[i:i+3]] == 'STOP':
       break
-    protien += rna_codon_table[rna_seq[i:i+3]]
+    protien += rna_codon_dictionary[rna_seq[i:i+3]]
   return protien
+
+### Protein to DNA(For Fun)
+
+import itertools as it
+
+prot_to_codon_dictionary = {
+'A': ('GCU', 'GCC', 'GCA', 'GCG'),
+'C': ('UGU', 'UGC'),
+'D': ('GAU', 'GAC'),
+'E': ('GAA', 'GAG'),
+'F': ('UUU', 'UUC'),
+'G': ('GGU', 'GGC', 'GGA', 'GGG'),
+'H': ('CAU', 'CAC'),
+'I': ('AUU', 'AUC', 'AUA'),
+'K': ('AAA', 'AAG'),
+'L': ('UUA', 'UUG', 'CUU', 'CUC', 'CUA', 'CUG'),
+'M': ('AUG',),
+'N': ('AAU', 'AAC'),
+'P': ('CCU', 'CCC', 'CCA', 'CCG'),
+'Q': ('CAA', 'CAG'),
+'R': ('CGU', 'CGC', 'CGA', 'CGG', 'AGA', 'AGG'),
+'S': ('UCU', 'UCC', 'UCA', 'UCG', 'AGU', 'AGC'),
+'T': ('ACU', 'ACC', 'ACA', 'ACG'),
+'V': ('GUU', 'GUC', 'GUA', 'GUG'),
+'W': ('UGG',),
+'Y': ('UAU', 'UAC'),}
+
+
+
+
+new_dict = {}
+for key, value in input_dict.items():
+  try:
+      index = int(key)
+      if 0 <= index < len(input_string):
+            new_dict[key] = value
+  except ValueError:
+    continue  # Skip keys that cannot be converted to integers
+
+return new_dict
+
+
+
+
+
+def prot_to_rna(prot):
+  needed_prot_dictionary = {}
+  for i in prot
+    if i in rna_codon_dictionary.items():
+      
+  # allcodons = sorted(prot_to_codon_dictionary)
+  # combinations = it.product(*(prot_to_codon_dictionary[codon] for codon in allcodons))
+  # print(list(combinations))
+
 
 
 ## Finding a Motif (SUBS)*
@@ -144,20 +195,35 @@ def transition_transversion(seq1,seq2):
 
 ## Open Reading Frames (ORF) WORK IN PROGRESS
 
-# test = 'AGCCATGTAGCTAACTCAGGTTACATGGGGATGACCCCGCGACTTGGATTAGAGTCTCTTTTGGAATAAGCCTGAATGATCCGAGTAGCATCTCAG'
+test = 'AGCCATGTAGCTAACTCAGGTTACATGGGGATGACCCCGCGACTTGGATTAGAGTCTCTTTTGGAATAAGCCTGAATGATCCGAGTAGCATCTCAG'
 
-# def all_orfs(seq):
-#   rna_seq = dna_to_rna(seq)
-#   for i in range(0,len(rna_seq)):
-#     rna1 = rna_seq[i:]
-#     rna2 = rna_seq[i+1:]
-#     rna3 = rna_seq[i+2:]
-#     rna_rev1 = rna_seq[i:][::-1]
-#     rna_rev2 = rna_seq[i+1:][::-1]
-#     rna_rev3 = rna_seq[i+1:][::-1]
-#     return rna1, rna2, rna3, rna_rev1, rna_rev2, rna_rev3
+def all_orfs(seq):
+  proteins = []
+  for i in range(len(seq)):
+    if seq[i:i+3] == 'ATG':
+      temp_seq = seq[i:]
+      rna_seq = dna_to_rna(temp_seq)
+      orfs = rna_to_prot(rna_seq)
+      proteins.append(orfs)
+  return proteins
 
-# print(all_orfs(test))
+all_orfs(test)
+
+test1 = 'ATGTAGCTAACTCAGGTTACATGGGGATGACCCCGCGACTTGGATTAGAGTCTCTTTTGGAATAAGCCTGAATGATCCGAGTAGCATCTCAG'
+test2 = 'ATGGGGATGACCCCGCGACTTGGATTAGAGTCTCTTTTGGAATAAGCCTGAATGATCCGAGTAGCATCTCAG'
+test3 = 'ATGACCCCGCGACTTGGATTAGAGTCTCTTTTGGAATAAGCCTGAATGATCCGAGTAGCATCTCAG'
+test4 = 'ATGATCCGAGTAGCATCTCAG'
+
+rna1 = dna_to_rna(test1)
+rna2 = dna_to_rna(test2)
+rna3 = dna_to_rna(test3)
+rna4 = dna_to_rna(test4)
+
+rna_to_prot(rna1)
+rna_to_prot(rna2)
+rna_to_prot(rna3)
+rna_to_prot(rna4)
+
 
 # orfs_test = all_orfs(test)
 
