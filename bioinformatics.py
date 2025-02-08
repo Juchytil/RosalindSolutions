@@ -70,15 +70,16 @@ rna_codon_dictionary = {
 
 def rna_to_prot(rna_seq):
   protien = ''
-  for i in range(0,len(rna_seq),3):
+  for i in range(0,len(rna_seq)-3,3):
     if rna_codon_dictionary[rna_seq[i:i+3]] == 'STOP':
       break
     protien += rna_codon_dictionary[rna_seq[i:i+3]]
   return protien
 
-### Protein to DNA(For Fun)
+### Protein to DNA(For Fun)*
 
 import itertools as it
+from itertools import product
 
 prot_to_codon_dictionary = {
 'A': ('GCU', 'GCC', 'GCA', 'GCG'),
@@ -102,34 +103,14 @@ prot_to_codon_dictionary = {
 'W': ('UGG',),
 'Y': ('UAU', 'UAC'),}
 
-
-
-
-new_dict = {}
-for key, value in input_dict.items():
-  try:
-      index = int(key)
-      if 0 <= index < len(input_string):
-            new_dict[key] = value
-  except ValueError:
-    continue  # Skip keys that cannot be converted to integers
-
-return new_dict
-
-
-
-
-
-def prot_to_rna(prot):
+def prot_to_rnas(prot):
   needed_prot_dictionary = {}
-  for i in prot
-    if i in rna_codon_dictionary.items():
-      
-  # allcodons = sorted(prot_to_codon_dictionary)
-  # combinations = it.product(*(prot_to_codon_dictionary[codon] for codon in allcodons))
-  # print(list(combinations))
-
-
+  for letter in prot:
+    if letter in prot_to_codon_dictionary:  
+        needed_prot_dictionary[letter] = prot_to_codon_dictionary[letter]  
+  value_lists = [needed_prot_dictionary[letter] for letter in prot if letter in needed_prot_dictionary]
+  combinations = [''.join(combo) for combo in product(*value_lists)]
+  print(combinations)
 
 ## Finding a Motif (SUBS)*
 
@@ -197,41 +178,25 @@ def transition_transversion(seq1,seq2):
 
 test = 'AGCCATGTAGCTAACTCAGGTTACATGGGGATGACCCCGCGACTTGGATTAGAGTCTCTTTTGGAATAAGCCTGAATGATCCGAGTAGCATCTCAG'
 
+
 def all_orfs(seq):
   proteins = []
+  rev_seq = seq[::-1]
   for i in range(len(seq)):
     if seq[i:i+3] == 'ATG':
       temp_seq = seq[i:]
       rna_seq = dna_to_rna(temp_seq)
       orfs = rna_to_prot(rna_seq)
       proteins.append(orfs)
+  for i in range(len(rev_seq)):
+    if rev_seq[i:i+3] == 'ATG':
+      rev_temp_seq = rev_seq[i:]
+      rev_rna_seq = dna_to_rna(rev_temp_seq)
+      rev_orfs = rna_to_prot(rev_rna_seq)
+      proteins.append(rev_orfs)
   return proteins
 
 all_orfs(test)
-
-test1 = 'ATGTAGCTAACTCAGGTTACATGGGGATGACCCCGCGACTTGGATTAGAGTCTCTTTTGGAATAAGCCTGAATGATCCGAGTAGCATCTCAG'
-test2 = 'ATGGGGATGACCCCGCGACTTGGATTAGAGTCTCTTTTGGAATAAGCCTGAATGATCCGAGTAGCATCTCAG'
-test3 = 'ATGACCCCGCGACTTGGATTAGAGTCTCTTTTGGAATAAGCCTGAATGATCCGAGTAGCATCTCAG'
-test4 = 'ATGATCCGAGTAGCATCTCAG'
-
-rna1 = dna_to_rna(test1)
-rna2 = dna_to_rna(test2)
-rna3 = dna_to_rna(test3)
-rna4 = dna_to_rna(test4)
-
-rna_to_prot(rna1)
-rna_to_prot(rna2)
-rna_to_prot(rna3)
-rna_to_prot(rna4)
-
-
-# orfs_test = all_orfs(test)
-
-# for i in orfs_test:
-#   print(rna_to_prot(i))
-
-# rna_test = dna_to_rna(test)
-# rna_to_prot(rna_test)
 
 ## Rabbits and Recurrence Relations (FIB)*
 
