@@ -1,5 +1,17 @@
 # My Rosalind Solutions
 
+### for opening FASTA file if needed
+def fasta_to_dict(fasta_file):
+  with open(fasta_file, 'r') as file:
+    fastas={}
+    for line in file.readlines():
+      if line [0]=='>':
+        header=line[1:].strip()
+        fastas[header]=''
+      else:
+        fastas[header]+=line[:-1]
+    print(fastas)
+
 ## Counting Nucleotides (DNA)*
 
 def nuc_count(seq):
@@ -23,17 +35,6 @@ def reverse_compliment_seq(seq):
   return rev_comp_seq
 
 ## GC Content Function (GC)*
-
-### for opening FASTA file if needed
-  # with open('rosalind_gc.txt', 'r') as file:
-  # fastas={}
-  # for line in file.readlines():
-  #   if line [0]=='>':
-  #     header=line[1:].strip()
-  #     fastas[header]=''
-  #   else:
-  #     fastas[header]+=line[:-1]
-  # print(fastas)
 
 def GC_content(sequence):
     seq_len = len(sequence)
@@ -173,6 +174,35 @@ def transition_transversion(seq1,seq2):
   return transition/transversion
 
 ## Finding a Shared Motif (LCSM)
+
+def fasta_to_dict(fasta_file):
+  with open(fasta_file, 'r') as file:
+    fastas={}
+    for line in file.readlines():
+      if line [0]=='>':
+        header=line[1:].strip()
+        fastas[header]=''
+      else:
+        fastas[header]+=line[:-1]
+    return fastas
+
+lcsm_dict = fasta_to_dict('rosalind_lcsm.txt')
+
+def shared_motif(sequences_dict):
+  list_of_seqs = list(sequences_dict.values())
+  ref = list_of_seqs[0]
+  other_seqs = list_of_seqs[1:]
+  motifs = []
+  for i in range(len(ref)):
+    for n in range(len(ref)):
+      for s in other_seqs:
+        if ref[i:i+n] not in s:
+          return False
+        else:
+          motifs.append(ref[i:i+n])
+  return max(motifs)
+
+shared_motif(lcsm_dict)
 
 ## Open Reading Frames (ORF) WORK IN PROGRESS
 
