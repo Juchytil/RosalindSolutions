@@ -173,20 +173,20 @@ def transition_transversion(seq1,seq2):
         transversion += 1
   return transition/transversion
 
-## Finding a Shared Motif (LCSM)
+## Finding a Shared Motif (LCSM) WORK IN PROGRESS
 
-def fasta_to_dict(fasta_file):
-  with open(fasta_file, 'r') as file:
-    fastas={}
-    for line in file.readlines():
-      if line [0]=='>':
-        header=line[1:].strip()
-        fastas[header]=''
-      else:
-        fastas[header]+=line[:-1]
-    return fastas
+# def fasta_to_dict(fasta_file):
+#   with open(fasta_file, 'r') as file:
+#     fastas={}
+#     for line in file.readlines():
+#       if line [0]=='>':
+#         header=line[1:].strip()
+#         fastas[header]=''
+#       else:
+#         fastas[header]+=line[:-1]
+#     return fastas
 
-lcsm_dict = fasta_to_dict('rosalind_lcsm.txt')
+# lcsm_dict = fasta_to_dict('rosalind_lcsm.txt')
 
 def shared_motif(sequences_dict):
   list_of_seqs = list(sequences_dict.values())
@@ -195,11 +195,8 @@ def shared_motif(sequences_dict):
   motifs = []
   for i in range(len(ref)):
     for n in range(len(ref)):
-      for s in other_seqs:
-        if ref[i:i+n] not in s:
-          return False
-        else:
-          motifs.append(ref[i:i+n])
+      if all(ref[i:i+n] in s for s in other_seqs):
+        motifs.append(ref[i:i+n])
   return max(motifs)
 
 shared_motif(lcsm_dict)
