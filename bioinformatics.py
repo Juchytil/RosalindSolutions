@@ -173,20 +173,7 @@ def transition_transversion(seq1,seq2):
         transversion += 1
   return transition/transversion
 
-## Finding a Shared Motif (LCSM) WORK IN PROGRESS
-
-def fasta_to_dict(fasta_file):
-  with open(fasta_file, 'r') as file:
-    fastas={}
-    for line in file.readlines():
-      if line [0]=='>':
-        header=line[1:].strip()
-        fastas[header]=''
-      else:
-        fastas[header]+=line[:-1]
-    return fastas
-
-lcsm_dict = fasta_to_dict('rosalind_lcsm.txt')
+## Finding a Shared Motif (LCSM)*
 
 def shared_motif(sequences_dict):
   list_of_seqs = list(sequences_dict.values())
@@ -197,33 +184,31 @@ def shared_motif(sequences_dict):
     for n in range(len(ref)):
       if all(ref[i:i+n] in s for s in other_seqs):
         motifs.append(ref[i:i+n])
-  return max(motifs)
-
-shared_motif(lcsm_dict)
+  return max(motifs, key=len)
 
 ## Open Reading Frames (ORF) WORK IN PROGRESS
 
-test = 'AGCCATGTAGCTAACTCAGGTTACATGGGGATGACCCCGCGACTTGGATTAGAGTCTCTTTTGGAATAAGCCTGAATGATCCGAGTAGCATCTCAG'
+# test = 'AGCCATGTAGCTAACTCAGGTTACATGGGGATGACCCCGCGACTTGGATTAGAGTCTCTTTTGGAATAAGCCTGAATGATCCGAGTAGCATCTCAG'
 
 
-def all_orfs(seq):
-  proteins = []
-  rev_seq = seq[::-1]
-  for i in range(len(seq)):
-    if seq[i:i+3] == 'ATG':
-      temp_seq = seq[i:]
-      rna_seq = dna_to_rna(temp_seq)
-      orfs = rna_to_prot(rna_seq)
-      proteins.append(orfs)
-  for i in range(len(rev_seq)):
-    if rev_seq[i:i+3] == 'ATG':
-      rev_temp_seq = rev_seq[i:]
-      rev_rna_seq = dna_to_rna(rev_temp_seq)
-      rev_orfs = rna_to_prot(rev_rna_seq)
-      proteins.append(rev_orfs)
-  return proteins
+# def all_orfs(seq):
+#   proteins = []
+#   rev_seq = seq[::-1]
+#   for i in range(len(seq)):
+#     if seq[i:i+3] == 'ATG':
+#       temp_seq = seq[i:]
+#       rna_seq = dna_to_rna(temp_seq)
+#       orfs = rna_to_prot(rna_seq)
+#       proteins.append(orfs)
+#   for i in range(len(rev_seq)):
+#     if rev_seq[i:i+3] == 'ATG':
+#       rev_temp_seq = rev_seq[i:]
+#       rev_rna_seq = dna_to_rna(rev_temp_seq)
+#       rev_orfs = rna_to_prot(rev_rna_seq)
+#       proteins.append(rev_orfs)
+#   return proteins
 
-all_orfs(test)
+# all_orfs(test)
 
 ## Rabbits and Recurrence Relations (FIB)*
 
@@ -274,3 +259,27 @@ def mendelsfirst(dom,het,rec):
   rechet = recpickone*(het/(total -  1))
   percentdom = dompickone + (hetdom) + (hethet*0.75) + (hetrec*0.5) + (recdom) + (rechet*0.5)
   return percentdom
+
+## Calculating Expected Offspring (IEV)*
+
+def expected_offspring(genotype1,genotype2,genotype3,genotype4,genotype5,genotype6):
+  dom_offspring = 0
+  dom_offspring += (genotype1*2) + (genotype2*2) + (genotype3*2) + ((genotype4*2)*0.75) + ((genotype5*2)*0.5) + (genotype6*0)
+  return dom_offspring
+
+## Consensus and Profile (CONS)* CORRECT BUT UNABLE TO GET FORMATING FOR ROSALIND WEBSITE
+
+import pandas as pd
+
+def consensus_profile(fastadict):
+  row_labels = ['A', 'T', 'C', 'G']
+  list_of_seqs = list(fastadict.values())  
+  nucleotide_map = {'A': 0, 'C': 1, 'G': 2, 'T': 3}
+  result = {i: [0, 0, 0, 0] for i in range(len(list_of_seqs[0]))}
+  for seqs in list_of_seqs:
+    for i, char in enumerate(seqs):
+      if char in nucleotide_map:
+          result[i][nucleotide_map[char]] += 1
+  profiledf = pd.DataFrame.from_dict(result, orient='index', columns=row_labels).T 
+  consensus_sequence = "".join(profiledf.idxmax())
+  return profiledf, consensus_sequence
