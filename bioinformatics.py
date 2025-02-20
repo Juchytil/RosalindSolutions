@@ -10,7 +10,7 @@ def fasta_to_dict(fasta_file):
         fastas[header]=''
       else:
         fastas[header]+=line[:-1]
-    print(fastas)
+    return fastas
 
 ## Counting Nucleotides (DNA)*
 
