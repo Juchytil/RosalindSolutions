@@ -111,7 +111,7 @@ def prot_to_rnas(prot):
         needed_prot_dictionary[letter] = prot_to_codon_dictionary[letter]  
   value_lists = [needed_prot_dictionary[letter] for letter in prot if letter in needed_prot_dictionary]
   combinations = [''.join(combo) for combo in product(*value_lists)]
-  print(combinations)
+  return combinations
 
 ## Finding a Motif (SUBS)*
 
