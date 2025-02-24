@@ -188,25 +188,70 @@ def shared_motif(sequences_dict):
 
 ## Open Reading Frames (ORF) WORK IN PROGRESS
 
-# test = 'AGCCATGTAGCTAACTCAGGTTACATGGGGATGACCCCGCGACTTGGATTAGAGTCTCTTTTGGAATAAGCCTGAATGATCCGAGTAGCATCTCAG'
+dna_codons = {
+	"TTT": 'F', "TTC": 'F', "TTA": 'L',    "TTG": 'L',
+	"TCT": 'S', "TCC": 'S', "TCA": 'S',    "TCG": 'S',
+	"TAT": 'Y', "TAC": 'Y', "TAA": 'Stop', "TAG": 'Stop',
+	"TGT": 'C', "TGC": 'C', "TGA": 'Stop', "TGG": 'W',
+	"CTT": 'L', "CTC": 'L', "CTA": 'L',    "CTG": 'L',
+	"CCT": 'P', "CCC": 'P', "CCA": 'P',    "CCG": 'P',
+	"CAT": 'H', "CAC": 'H', "CAA": 'Q',    "CAG": 'Q',
+	"CGT": 'R', "CGC": 'R', "CGA": 'R',    "CGG": 'R',
+	"ATT": 'I', "ATC": 'I', "ATA": 'I',    "ATG": 'M',
+	"ACT": 'T', "ACC": 'T', "ACA": 'T',    "ACG": 'T',
+	"AAT": 'N', "AAC": 'N', "AAA": 'K',    "AAG": 'K',
+	"AGT": 'S', "AGC": 'S', "AGA": 'R',    "AGG": 'R',
+	"GTT": 'V', "GTC": 'V', "GTA": 'V',    "GTG": 'V',
+	"GCT": 'A', "GCC": 'A', "GCA": 'A',    "GCG": 'A',
+	"GAT": 'D', "GAC": 'D', "GAA": 'E',    "GAG": 'E',
+	"GGT": 'G', "GGC": 'G', "GGA": 'G',    "GGG": 'G'
+}
 
+dna_start_codon = "ATG"
+dna_stop_codon = [key for key, val in DNA_CODON_MAP.items() if val == "Stop"]
+dna_comps = {'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C'}
 
-# def all_orfs(seq):
-#   proteins = []
-#   rev_seq = seq[::-1]
-#   for i in range(len(seq)):
-#     if seq[i:i+3] == 'ATG':
-#       temp_seq = seq[i:]
-#       rna_seq = dna_to_rna(temp_seq)
-#       orfs = rna_to_prot(rna_seq)
-#       proteins.append(orfs)
-#   for i in range(len(rev_seq)):
-#     if rev_seq[i:i+3] == 'ATG':
-#       rev_temp_seq = rev_seq[i:]
-#       rev_rna_seq = dna_to_rna(rev_temp_seq)
-#       rev_orfs = rna_to_prot(rev_rna_seq)
-#       proteins.append(rev_orfs)
-#   return proteins
+rna_codons = {
+	"UUU": 'F', "UUC": 'F', "UUA": 'L',    "UUG": 'L',
+	"UCU": 'S', "UCC": 'S', "UCA": 'S',    "UCG": 'S',
+	"UAU": 'Y', "UAC": 'Y', "UAA": 'Stop', "UAG": 'Stop',
+	"UGU": 'C', "UGC": 'C', "UGA": 'Stop', "UGG": 'W',
+	"CUU": 'L', "CUC": 'L', "CUA": 'L',    "CUG": 'L',
+	"CCU": 'P', "CCC": 'P', "CCA": 'P',    "CCG": 'P',
+	"CAU": 'H', "CAC": 'H', "CAA": 'Q',    "CAG": 'Q',
+	"CGU": 'R', "CGC": 'R', "CGA": 'R',    "CGG": 'R',
+	"AUU": 'I', "AUC": 'I', "AUA": 'I',    "AUG": 'M',
+	"ACU": 'T', "ACC": 'T', "ACA": 'T',    "ACG": 'T',
+	"AAU": 'N', "AAC": 'N', "AAA": 'K',    "AAG": 'K',
+	"AGU": 'S', "AGC": 'S', "AGA": 'R',    "AGG": 'R',
+	"GUU": 'V', "GUC": 'V', "GUA": 'V',    "GUG": 'V',
+	"GCU": 'A', "GCC": 'A', "GCA": 'A',    "GCG": 'A',
+	"GAU": 'D', "GAC": 'D', "GAA": 'E',    "GAG": 'E',
+	"GGU": 'G', "GGC": 'G', "GGA": 'G',    "GGG": 'G'
+}
+
+rna_start_codon = "AUG"
+rna_stop_codon = [key for key, val in RNA_CODON_MAP.items() if val == "Stop"]
+rna_comps = {'A': 'U', 'U': 'A', 'C': 'G', 'G': 'C'}
+
+dna = ''.join(dna_list[0].content)
+dna_rc = ''.join(dna_comps[c] for c in reversed(dna))
+
+def find_proteins(s):
+	starts = []
+	for i in range(len(s)-2):
+		if s[i:i+3] == dna_start_codon:
+			starts.append(i)
+	proteins = []
+	for start in starts:
+		cur_protein = []
+		for i in range(start, len(s)-(len(s)-start)%3, 3):
+			aa = dna_codons[s[i:i+3]]
+			if aa == "Stop":
+				proteins.append(''.join(cur_protein))
+				break
+			cur_protein.append(aa)
+	return proteins
 
 # all_orfs(test)
 
