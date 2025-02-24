@@ -186,7 +186,7 @@ def shared_motif(sequences_dict):
         motifs.append(ref[i:i+n])
   return max(motifs, key=len)
 
-## Open Reading Frames (ORF) WORK IN PROGRESS
+## Open Reading Frames (ORF)*
 
 dna_codons = {
 	"TTT": 'F', "TTC": 'F', "TTA": 'L',    "TTG": 'L',
