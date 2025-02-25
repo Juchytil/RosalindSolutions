@@ -141,12 +141,14 @@ def prot_mass(seq):
 
 ## RNA Splicing (SPLC)*
 
+
 def rna_splicing(seq,introns):
   for intron in introns:
     seq = seq.replace(intron,'')
   rna_seq = dna_to_rna(seq)
   protein = rna_to_prot(rna_seq)
   return protein
+
 
 ## Locating Restriction Sites (REVP)*
 
@@ -169,7 +171,7 @@ def transition_transversion(seq1,seq2):
   for i in range(len(seq1)):
     if (seq1[i], seq2[i]) in transition_list:
         transition += 1
-    if (seq1[i], seq2[i]) in transversions_list:
+    elif (seq1[i], seq2[i]) in transversions_list:
         transversion += 1
   return transition/transversion
 
