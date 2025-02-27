@@ -210,7 +210,7 @@ dna_codons = {
 }
 
 dna_start_codon = "ATG"
-dna_stop_codon = [key for key, val in DNA_CODON_MAP.items() if val == "Stop"]
+dna_stop_codon = [key for key, val in dna_codons.items() if val == "Stop"]
 dna_comps = {'A': 'T', 'T': 'A', 'C': 'G', 'G': 'C'}
 
 rna_codons = {
@@ -233,7 +233,7 @@ rna_codons = {
 }
 
 rna_start_codon = "AUG"
-rna_stop_codon = [key for key, val in RNA_CODON_MAP.items() if val == "Stop"]
+rna_stop_codon = [key for key, val in rna_codons.items() if val == "Stop"]
 rna_comps = {'A': 'U', 'U': 'A', 'C': 'G', 'G': 'C'}
 
 dna = ''.join(dna_list[0].content)
